@@ -1,34 +1,35 @@
 mod read_file_aoc;
 use std::collections::HashSet;
 
-fn part_one() {
+fn part_one() -> i32 {
     let mut hash_set: HashSet<i32> = HashSet::new();
     let values: Vec<i32> = read_file_aoc::read_input("resources/1.txt".to_string());
     let win: i32 = 2020;
 
-    for &value in values.iter() {
-        let temp: i32 = win - value;
-        if hash_set.contains(&temp) {
-            println!("You win! Product: {:?}", temp * value)
+    for &first_val in values.iter() {
+        let second_val: i32 = win - first_val;
+        if hash_set.contains(&second_val) {
+            return first_val * second_val;
         }
-        hash_set.insert(value);
+        hash_set.insert(first_val);
     }
-    part_two();
+    return 0;
 }
 
-fn part_two() {
+fn part_two() -> i32 {
     let mut hash_set: HashSet<i32> = HashSet::new();
     let values: Vec<i32> = read_file_aoc::read_input("resources/1.txt".to_string());
     let win: i32 = 2020;
 
-    for &value in values.iter() {
-        let current_sum: i32 = win - value;
-        for &j in values.iter() {
-            let temp: i32 = current_sum - j;
-            if hash_set.contains(&temp) {
-                println!("You win! Product: {:?}", j * value * temp)
+    for &first_val in values.iter() {
+        let current_sum: i32 = win - first_val;
+        for &second_val in values.iter() {
+            let third_val: i32 = current_sum - second_val;
+            if hash_set.contains(&third_val) {
+                return first_val * second_val * third_val;
             }
-            hash_set.insert(value);
+            hash_set.insert(first_val);
         }
     }
+    return 0;
 }
